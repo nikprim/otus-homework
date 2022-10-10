@@ -11,7 +11,7 @@ var ErrInvalidString = errors.New("invalid string")
 
 func Unpack(s string) (string, error) {
 	var tmpChar rune
-	hasTmpChar := false
+	var hasTmpChar bool
 	b := strings.Builder{}
 
 	for _, char := range s {
