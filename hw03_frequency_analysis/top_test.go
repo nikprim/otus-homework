@@ -79,4 +79,34 @@ func TestTop10(t *testing.T) {
 			require.Equal(t, expected, Top10(text))
 		}
 	})
+
+	t.Run("short list", func(t *testing.T) {
+		result := Top10("one two three")
+
+		require.Equal(t, []string{"one", "three", "two"}, result)
+	})
+
+	t.Run("symbol", func(t *testing.T) {
+		result := Top10("$")
+
+		require.Equal(t, []string{"$"}, result)
+	})
+
+	t.Run("digits", func(t *testing.T) {
+		result := Top10("123 01")
+
+		require.Equal(t, []string{"01", "123"}, result)
+	})
+
+	t.Run("chinese words", func(t *testing.T) {
+		result := Top10("自")
+
+		require.Equal(t, []string{"自"}, result)
+	})
+
+	t.Run("void", func(t *testing.T) {
+		result := Top10("")
+
+		require.Equal(t, []string{}, result)
+	})
 }
