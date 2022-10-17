@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/stretchr/testify/require"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestReadDir(t *testing.T) {
@@ -78,5 +79,4 @@ func TestGetValueFromLine(t *testing.T) {
 			require.Equal(t, test.expected, result)
 		})
 	}
-
 }

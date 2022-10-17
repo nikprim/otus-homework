@@ -7,7 +7,7 @@ import (
 )
 
 func RunCmd(cmd []string, env Environment) (returnCode int) {
-	command := exec.Command(cmd[0], cmd[1:]...)
+	command := exec.Command(cmd[0], cmd[1:]...) //nolint:gosec
 	command.Env = append(os.Environ(), env.toStrings()...)
 	command.Stdin = os.Stdin
 	command.Stdout = os.Stdout
@@ -22,5 +22,4 @@ func RunCmd(cmd []string, env Environment) (returnCode int) {
 	_ = command.Wait()
 
 	return command.ProcessState.ExitCode()
-
 }

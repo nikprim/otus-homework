@@ -67,7 +67,7 @@ func ReadDir(dir string) (Environment, error) {
 }
 
 func getValueFromLine(line string) string {
-	value := strings.Replace(line, string([]byte{0x00}), "\n", -1)
+	value := strings.ReplaceAll(line, string([]byte{0x00}), "\n")
 
 	for strings.HasSuffix(value, " ") || strings.HasSuffix(value, "\t") {
 		value = strings.TrimRight(value, "\t")
