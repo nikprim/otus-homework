@@ -48,8 +48,8 @@ func TestGetDomainStat(t *testing.T) {
 	})
 
 	t.Run("find 'рф'", func(t *testing.T) {
-		result, err := GetDomainStat(bytes.NewBufferString(data), "gov")
+		result, err := GetDomainStat(bytes.NewBufferString(data), "рф")
 		require.NoError(t, err)
-		require.Equal(t, DomainStat{"рф": 1}, result)
+		require.Equal(t, DomainStat{"почта.рф": 1}, result)
 	})
 }
