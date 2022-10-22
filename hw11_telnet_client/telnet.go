@@ -32,7 +32,7 @@ type telnetClient struct {
 	conn    net.Conn
 }
 
-func (t telnetClient) Connect() error {
+func (t *telnetClient) Connect() error {
 	if t.conn != nil {
 		return nil
 	}
@@ -47,11 +47,11 @@ func (t telnetClient) Connect() error {
 	return nil
 }
 
-func (t telnetClient) Close() error {
-	return t.Close()
+func (t *telnetClient) Close() error {
+	return t.conn.Close()
 }
 
-func (t telnetClient) Send() error {
+func (t *telnetClient) Send() error {
 	if t.conn == nil {
 		return errors.New("need to connect first")
 	}
@@ -68,7 +68,7 @@ func (t telnetClient) Send() error {
 	return nil
 }
 
-func (t telnetClient) Receive() error {
+func (t *telnetClient) Receive() error {
 	if t.conn == nil {
 		return errors.New("need to connect first")
 	}
