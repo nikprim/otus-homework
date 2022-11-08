@@ -6,10 +6,9 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/stretchr/testify/require"
-
 	"github.com/nikprim/otus-homework/hw12_13_14_15_calendar/internal/storage"
 	memorystorage "github.com/nikprim/otus-homework/hw12_13_14_15_calendar/internal/storage/memory"
+	"github.com/stretchr/testify/require"
 )
 
 func TestStorage_CUD(t *testing.T) {

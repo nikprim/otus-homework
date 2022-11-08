@@ -29,8 +29,7 @@ type Server struct {
 	server *http.Server
 }
 
-type Application interface {
-}
+type Application interface{}
 
 func NewServer(host string, port int, app Application) *Server {
 	return &Server{host, port, app, nil}
