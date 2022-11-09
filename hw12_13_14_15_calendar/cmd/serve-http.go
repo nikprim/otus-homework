@@ -8,7 +8,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/jackc/pgx/v4"
+	pgx "github.com/jackc/pgx/v4"
 	"github.com/nikprim/otus-homework/hw12_13_14_15_calendar/cmd/config"
 	"github.com/nikprim/otus-homework/hw12_13_14_15_calendar/internal/app"
 	internalhttp "github.com/nikprim/otus-homework/hw12_13_14_15_calendar/internal/server/http"
