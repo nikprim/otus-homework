@@ -4,11 +4,19 @@ DOCKER_IMG="calendar:develop"
 GIT_HASH := $(shell git log --format="%h" -n 1)
 LDFLAGS := -X main.release="develop" -X main.buildDate=$(shell date -u +%Y-%m-%dT%H:%M:%S) -X main.gitHash=$(GIT_HASH)
 
-build:
-	go build -v -o $(BIN) -ldflags "$(LDFLAGS)" ./cmd/calendar
+docker-up:
+	docker-compose -f ./deployments/docker-compose.yaml up -d
+	while ! docker-compose -f ./deployments/docker-compose.yaml exec --user postgres db psql -c "select 'db ready!'"; do sleep 1; done;
 
-run: build
-	$(BIN) -config ./configs/config.toml
+docker-stop:
+	docker-compose -f ./deployments/docker-compose.yaml down
+
+build:
+	docker-compose -f ./deployments/docker-compose.yaml build
+	go build -v -o $(BIN) -ldflags "$(LDFLAGS)" .
+
+run: build docker-up migrate
+	$(BIN) serve-http --config ./configs/config.yaml
 
 build-img:
 	docker build \
@@ -30,5 +38,11 @@ install-lint-deps:
 
 lint: install-lint-deps
 	golangci-lint run ./...
+
+install-migrator:
+	(which goose > /dev/null) || go install github.com/pressly/goose/v3/cmd/goose@latest
+
+migrate: install-migrator
+	goose --dir ./migrations postgres "postgres://postgres:password@localhost:15432/postgres?sslmode=disable" up
 
 .PHONY: build run build-img run-img version test lint

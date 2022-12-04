@@ -1,0 +1,12 @@
+logger:
+  level: debug
+
+db:
+  type: psql
+
+  psql:
+    url: "postgres://postgres:password@localhost:15432/postgres"
+
+http:
+  host: ""
+  port: 8001
